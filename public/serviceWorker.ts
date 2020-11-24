@@ -1,6 +1,8 @@
-if ('serviceWorker' in navigator){
+
+export function unregister(){
+if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-  .register('./service-worker.js')
+  .register('./sw.ts')
   .then(()=>{
       console.log('service worker is working')
   })
@@ -12,3 +14,5 @@ if ('serviceWorker' in navigator){
   else{
       console.log('its not avaliable')
   }
+}
+  
