@@ -3,6 +3,7 @@ import { fetchQuizQuestion } from './Api';
 import QuestionCards from './components/QuestionCards';
 import { QuestionState, Difficulty } from './Api'
 import './App.css'
+import firebase from './firebase'
 
 const Total_Numbers=10
 
@@ -15,6 +16,17 @@ export type AnswerObject = {
 
 
 function App() {
+
+  const messaging = firebase.messaging()
+    messaging.requestPermission()
+        .then(() => {
+          return messaging.getToken()
+        })
+      .then((token) => {
+          console.log('token',token)
+        })
+
+
   const [loading, setLoading] = useState(false)
   const [questions, setQusetions] = useState<QuestionState[]>([])
   const [number, setNumber] = useState(0)
@@ -54,7 +66,7 @@ function App() {
   }
   
   return (
-    <div className='App'>
+     <div className='App'>
        
       <h1>React Quiz</h1>
       {gameOver || userAnswers.length===Total_Numbers ? (
